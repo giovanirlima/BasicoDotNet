@@ -23,7 +23,7 @@ public class GetAvisoPorIdHandler : IRequestHandler<GetAvisoPorIdRequest, IOpera
         var response = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.NoTracking);
 
         if (response is null)
-            return OperationResult<GetAvisosResponse>.ReturnNoContent();
+            return OperationResult<GetAvisosResponse>.ReturnNotFound();
 
         return OperationResult<GetAvisosResponse>.ReturnOk(response);
     }

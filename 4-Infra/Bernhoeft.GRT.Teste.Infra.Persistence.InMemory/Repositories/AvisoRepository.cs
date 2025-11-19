@@ -10,9 +10,7 @@ namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Re
 [InjectService(Interface: typeof(IAvisoRepository))]
 public class AvisoRepository : Repository<AvisoEntity>, IAvisoRepository
 {
-    public AvisoRepository(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
+    public AvisoRepository(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
     public Task<List<AvisoEntity>> ObterTodosAvisosAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
     {
@@ -25,5 +23,19 @@ public class AvisoRepository : Repository<AvisoEntity>, IAvisoRepository
         var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
 
         return await query.Where(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task AdicionarAvisoAsync(bool ativo, string titulo, string mensagem, CancellationToken cancellationToken = default)
+    {
+        var query = Set;
+
+        await query.AddAsync(new AvisoEntity
+        {
+            Ativo = ativo,
+            Titulo = titulo,
+            Mensagem = mensagem
+        }, cancellationToken);
+
+        await Context.SaveChangesAsync(cancellationToken);
     }
 }
