@@ -5,19 +5,18 @@ using Bernhoeft.GRT.Core.EntityFramework.Infra;
 using Bernhoeft.GRT.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Repositories
-{
-    [InjectService(Interface: typeof(IAvisoRepository))]
-    public class AvisoRepository : Repository<AvisoEntity>, IAvisoRepository
-    {
-        public AvisoRepository(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-        }
+namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Repositories;
 
-        public Task<List<AvisoEntity>> ObterTodosAvisosAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
-        {
-            var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
-            return query.ToListAsync();
-        }
+[InjectService(Interface: typeof(IAvisoRepository))]
+public class AvisoRepository : Repository<AvisoEntity>, IAvisoRepository
+{
+    public AvisoRepository(IServiceProvider serviceProvider) : base(serviceProvider)
+    {
+    }
+
+    public Task<List<AvisoEntity>> ObterTodosAvisosAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
+    {
+        var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
+        return query.ToListAsync();
     }
 }
