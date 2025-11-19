@@ -2,9 +2,9 @@
 
 namespace Bernhoeft.GRT.Teste.Application.Requests.Commands.v1.Validations;
 
-public class AddAvisoCommandValidation : AbstractValidator<AddAvisoCommandRequest>
+public class AddAvisoValidation : AbstractValidator<AddAvisoRequest>
 {
-    public AddAvisoCommandValidation()
+    public AddAvisoValidation()
     {
         RuleFor(x => x.Titulo)
             .NotEmpty()

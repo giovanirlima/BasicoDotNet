@@ -15,6 +15,8 @@ public partial class AvisoMap : IEntityTypeConfiguration<AvisoEntity>
         builder.Property(x => x.Ativo).HasColumnName(@"ativo").HasColumnType("bit").IsRequired();
         builder.Property(x => x.Titulo).HasColumnName(@"titulo").HasColumnType("varchar(50)").IsRequired().IsUnicode(false).HasMaxLength(50);
         builder.Property(x => x.Mensagem).HasColumnName(@"mensagem").HasColumnType("text(2147483647)").IsRequired().IsUnicode(false).HasMaxLength(2147483647);
+        builder.Property(x => x.CriadoEm).HasColumnName(@"cridoEm").HasColumnType("datetime").IsRequired().HasDefaultValueSql("GETDATE()");
+        builder.Property(x => x.AtualizadoEm).HasColumnName(@"atualizadoEm").HasColumnType("datetime").IsRequired().HasDefaultValueSql("GETDATE()");
 
         InitializePartial(builder);
     }

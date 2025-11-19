@@ -8,17 +8,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Bernhoeft.GRT.Teste.Application.Handlers.Commands.v1;
 
-public class AddAvisoCommandHandler : IRequestHandler<AddAvisoCommandRequest, IOperationResult<AddAvisoResponse>>
+public class AddAvisoHandler : IRequestHandler<AddAvisoRequest, IOperationResult<AvisoResponse>>
 {
     private readonly IServiceProvider _serviceProvider;
     private IAvisoRepository _avisoRepository => _serviceProvider.GetRequiredService<IAvisoRepository>();
 
-    public AddAvisoCommandHandler(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
+    public AddAvisoHandler(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-    public async Task<IOperationResult<AddAvisoResponse>> Handle(AddAvisoCommandRequest request, CancellationToken cancellationToken)
+    public async Task<IOperationResult<AvisoResponse>> Handle(AddAvisoRequest request, CancellationToken cancellationToken)
     {
-        await _avisoRepository.AdicionarAvisoAsync(request.Ativo, request.Titulo, request.Mensagem);
+        await _avisoRepository.AdicionarAvisoAsync(request.Titulo, request.Mensagem);
 
-        return OperationResult<AddAvisoResponse>.ReturnCreated();
+        return OperationResult<AvisoResponse>.ReturnCreated();
     }
 }

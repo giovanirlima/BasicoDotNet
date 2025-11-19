@@ -51,6 +51,33 @@ public class AvisosController : RestApiController
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<object> AddAvisoAsync([FromBody] AddAvisoCommandRequest request, CancellationToken cancellationToken = default) =>
+    public async Task<object> AddAvisoAsync([FromBody] AddAvisoRequest request, CancellationToken cancellationToken = default) =>
         await Mediator.Send(request, cancellationToken);
+
+    /// <summary>
+    /// Atualiza um aviso existente.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<object> UpdateAvisoAsync([FromRoute] int id, [FromBody] UpdateAvisoRequest request, CancellationToken cancellationToken = default) =>
+        await Mediator.Send(request.SetIdProperty(id), cancellationToken);
+
+    /// <summary>
+    /// Inativa um aviso
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<object> DeleteAvisoAsync([FromRoute] int id, CancellationToken cancellationToken = default) =>
+        await Mediator.Send(new DeleteAvisoRequest().SetIdProperty(id), cancellationToken);
 }

@@ -4,9 +4,14 @@ using MediatR;
 
 namespace Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 
-public class AddAvisoCommandRequest : IRequest<IOperationResult<AddAvisoResponse>>
+public class UpdateAvisoRequest : IRequest<IOperationResult<AvisoResponse>>
 {
-    public bool Ativo { get; set; } = true;
-    public string Titulo { get; set; }
+    public int Id { get; private set; }
     public string Mensagem { get; set; }
+
+    public UpdateAvisoRequest SetIdProperty(int id)
+    {
+        Id = id;
+        return this;
+    }
 }

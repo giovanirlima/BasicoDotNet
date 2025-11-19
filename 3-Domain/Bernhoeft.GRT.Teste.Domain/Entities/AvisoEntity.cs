@@ -6,4 +6,6 @@ public partial class AvisoEntity
     public bool Ativo { get; set; } = true;
     public string Titulo { get; set; }
     public string Mensagem { get; set; }
+    public DateTime CriadoEm { get; set; } = DateTime.UtcNow;
+    public DateTime AtualizadoEm { get; set; } = DateTime.UtcNow;
 }
