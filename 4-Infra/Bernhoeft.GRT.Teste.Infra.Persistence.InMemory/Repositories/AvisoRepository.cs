@@ -19,4 +19,11 @@ public class AvisoRepository : Repository<AvisoEntity>, IAvisoRepository
         var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
         return query.ToListAsync();
     }
+
+    public async Task<AvisoEntity> ObterAvisoPorIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
+    {
+        var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
+
+        return await query.Where(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
+    }
 }

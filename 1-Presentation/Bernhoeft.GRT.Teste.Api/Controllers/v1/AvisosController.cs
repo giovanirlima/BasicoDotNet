@@ -15,33 +15,39 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1;
 [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
 public class AvisosController : RestApiController
 {
-///// <summary>
-///// Retorna um Aviso por ID.
-///// </summary>
-///// <param name="request"></param>
-///// <param name="cancellationToken"></param>
-///// <returns>Aviso.</returns>
-///// <response code="200">Sucesso.</response>
-///// <response code="400">Dados Inválidos.</response>
-///// <response code="404">Aviso Não Encontrado.</response>
-//[HttpGet("{id}")]
-//[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAvisoResponse))]
-//[ProducesResponseType(StatusCodes.Status400BadRequest)]
-//[ProducesResponseType(StatusCodes.Status404NotFound)]
-//[JwtAuthorize(Roles = AuthorizationRoles.CONTRACTLAYOUT_SISTEMA_AVISO_PESQUISAR)]
-//public async Task<object> GetAviso([FromModel] GetAvisoRequest request, CancellationToken cancellationToken)
-//    => await Mediator.Send(request, cancellationToken);
+    ///// <summary>
+    ///// Retorna um Aviso por ID.
+    ///// </summary>
+    ///// <param name="request"></param>
+    ///// <param name="cancellationToken"></param>
+    ///// <returns>Aviso.</returns>
+    ///// <response code="200">Sucesso.</response>
+    ///// <response code="400">Dados Inválidos.</response>
+    ///// <response code="404">Aviso Não Encontrado.</response>
+    //[HttpGet("{id}")]
+    //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAvisoResponse))]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(StatusCodes.Status404NotFound)]
+    //[JwtAuthorize(Roles = AuthorizationRoles.CONTRACTLAYOUT_SISTEMA_AVISO_PESQUISAR)]
+    //public async Task<object> GetAviso([FromModel] GetAvisoRequest request, CancellationToken cancellationToken)
+    //    => await Mediator.Send(request, cancellationToken);
 
-/// <summary>
-/// Retorna Todos os Avisos Cadastrados para Tela de Edição.
-/// </summary>
-/// <param name="cancellationToken"></param>
-/// <returns>Lista com Todos os Avisos.</returns>
-/// <response code="200">Sucesso.</response>
-/// <response code="204">Sem Avisos.</response>
-[HttpGet]
-[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<IEnumerable<GetAvisosResponse>>))]
-[ProducesResponseType(StatusCodes.Status204NoContent)]
-public async Task<object> GetAvisos(CancellationToken cancellationToken)
-    => await Mediator.Send(new GetAvisosRequest(), cancellationToken);
+    /// <summary>
+    /// Retorna Todos os Avisos Cadastrados para Tela de Edição.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Lista com Todos os Avisos.</returns>
+    /// <response code="200">Sucesso.</response>
+    /// <response code="204">Sem Avisos.</response>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<IEnumerable<GetAvisosResponse>>))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<object> GetAvisosAsync(CancellationToken cancellationToken)
+        => await Mediator.Send(new GetAvisosRequest(), cancellationToken);
+
+    [HttpGet("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<GetAvisosResponse>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<object> GetAvisoPorIdAsync(int id, CancellationToken cancellationToken = default) =>
+        await Mediator.Send(new GetAvisoPorIdRequest { Id = id }, cancellationToken);
 }
